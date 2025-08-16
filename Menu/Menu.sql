@@ -49,7 +49,7 @@ CREATE TABLE [MenuRol] (
 
 GO
 
-CREATE TABLE [UserRol] (
+CREATE TABLE [UserRol2] (
     [IdUserRol] int NOT NULL IDENTITY,
     [Status] nvarchar(max) NOT NULL,
     [FechaCreacion] datetime NOT NULL,
@@ -58,10 +58,10 @@ CREATE TABLE [UserRol] (
     [IdUser] int NOT NULL,
     [IdRol] int NOT NULL,
     [IdResponsable] int NOT NULL,
-    CONSTRAINT [PK_UserRol] PRIMARY KEY ([IdUserRol]),
-    CONSTRAINT [FK_UserRol_Seguridad_IdResponsable] FOREIGN KEY ([IdResponsable]) REFERENCES [Seguridad] ([IdSeguridad]) ON DELETE NO ACTION,
-    CONSTRAINT [FK_UserRol_Rol_IdRol] FOREIGN KEY ([IdRol]) REFERENCES [Rol] ([IdRol]) ON DELETE NO ACTION,
-    CONSTRAINT [FK_UserRol_Seguridad_IdUser] FOREIGN KEY ([IdUser]) REFERENCES [Seguridad] ([IdSeguridad]) ON DELETE NO ACTION
+    CONSTRAINT [PK_UserRol1] PRIMARY KEY ([IdUserRol]),
+    CONSTRAINT [FK_UserRol_Seguridad_IdResponsable1] FOREIGN KEY ([IdResponsable]) REFERENCES [Seguridad] ([IdSeguridad]) ON DELETE NO ACTION,
+    CONSTRAINT [FK_UserRol_Rol_IdRol1] FOREIGN KEY ([IdRol]) REFERENCES [Rol] ([IdRol]) ON DELETE NO ACTION,
+    CONSTRAINT [FK_UserRol_Seguridad_IdUser1] FOREIGN KEY ([IdUser]) REFERENCES [Seguridad] ([IdSeguridad]) ON DELETE NO ACTION
 );
 GO
 
@@ -143,3 +143,14 @@ GO
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
 VALUES (N'20250723141613_AddResponsableMenu', N'3.1.3');
 GO
+
+
+SELECT * FROM USUARIO
+SELECT * FROM USERROL
+SELECT * FROM SEGURIDAD
+INSERT INTO USERROL (Status, FechaCreacion, IdUser, IdRol, IdResponsable) VALUES ('Active', GETDATE(), 6, 1, 1)
+
+
+SELECT * FROM PQRENCABEZADO
+
+INSERT INTO UserRol2 (STATUS, FECHACREACION, IDUSER, IDROL,IDRESPONSABLE) SELECT STATUS, FECHACREACION, IDUSER, IDROL,IDRESPONSABLE FROM USERROL
